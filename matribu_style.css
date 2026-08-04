@@ -1,0 +1,89 @@
+/*jade was here*/
+
+
+body {
+  margin: 0;
+  font-family: serif;
+  background-color: #fef6eb;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+.header img {
+  width: 120px;
+  height: auto; 
+  border-radius:43%;
+}
+.header h2 {
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #000000; 
+  font-weight: normal;
+}
+.main-buttons a {
+  display: block;
+  width: 300px;
+  padding: 15px 0;
+  margin: 10px auto;
+  background-color: #f9d4c9; 
+  color: #000000;
+  text-decoration: none;
+  border-radius: 30px;
+  letter-spacing: 2px;
+}
+.emergencie-button a {
+  display: block;
+  width: 300px;
+  padding: 15px 0;
+  margin: 10px auto;
+  background-color: #c74c42;
+  color: #000000;
+  text-decoration: none;
+  border-radius: 30px;
+  letter-spacing: 2px;
+}
+#lang-button {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+#lang-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+#lang-indicator {
+  font-size: 12px;
+  font-weight: bold;
+  color: #4A3428;
+}
+#lang-button img {
+  border-radius: 50%;
+  display: block;
+}
+.language-selector {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.hidden {
+  display: none;
+}
+#lang-list {
+  list-style: none;
+  padding: 10px;
+  background-color: #F4D9C6;
+  border-radius: 10px;
+  position: absolute;
+  right: 0;
+}
+#lang-list li {
+  padding: 8px 15px;
+  cursor: pointer;
+}
+
+

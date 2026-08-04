@@ -1,0 +1,81 @@
+<!--jade was here-->
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Criar Conta</title>
+<link rel="stylesheet" href="create-account.css">
+</head>
+<body>
+
+<div class="top-bar">
+  <button id="lang-button">
+    <img src="language.png" alt="language icon" width="24" height="24">
+    <span id="lang-indicator">PT</span>
+  </button>
+  <ul id="lang-list" class="hidden">
+    <li data-lang="pt">PT</li>
+    <li data-lang="en">EN</li>
+    <li data-lang="es">ES</li>
+    <li data-lang="fr">FR</li>
+    <li data-lang="it">IT</li>
+    <li data-lang="de">DE</li>
+  </ul>
+</div>
+
+<div class="logo-wrap">
+  <img src="logo.png" alt="maTribu" class="logo">
+</div>
+
+<div class="card">
+  <h1 data-key="criar_conta_titulo">CRIAR CONTA</h1>
+
+  <div class="tabs">
+    <button class="tab active" id="tab-email">EMAIL</button>
+    <button class="tab" id="tab-phone">TELEMOVEL</button>
+  </div>
+
+  <form id="signup-form">
+    <label data-key="nome">NOME*</label>
+    <input type="text" id="nome" required>
+
+    <label data-key="apelido">APELIDO*</label>
+    <input type="text" id="apelido" required>
+
+    <div id="email-fields">
+      <label data-key="email_label">EMAIL*</label>
+      <input type="email" id="email">
+
+      <label data-key="password">PASSWORD*</label>
+      <div class="password-wrap">
+        <input type="password" id="password">
+        <span class="toggle-eye" data-target="password">👁</span>
+      </div>
+
+      <label data-key="confirm_password_label">CONFIRMAR PASSWORD*</label>
+      <div class="password-wrap">
+        <input type="password" id="confirm-password">
+        <span class="toggle-eye" data-target="confirm-password">👁</span>
+      </div>
+    </div>
+
+
+    <div id="phone-fields" style="display:none;">
+      <label data-key="telemovel">TELEMOVEL*</label>
+      <input type="tel" id="telemovel">
+    </div>
+
+    <p id="form-message"></p>
+
+    <button type="submit" id="submit-btn" data-key="criar_conta">CRIAR CONTA</button>
+  </form>
+
+  <p class="login-link">
+  <span data-key="ja_tens_conta">JA TENS CONTE?</span> <a href="login.html" data-key="entrar">ENTRAR</a>
+</p>
+</div>
+
+<script src="create-account.js"></script>
+</body>
+</html>
