@@ -4,77 +4,59 @@ console.log('JS loaded');
 
 const translations = {
   pt: {
-    criar_conta_titulo: "CRIAR CONTA",
-    nome: "NOME*",
-    apelido: "APELIDO*",
+    entrar_titulo: "ENTRAR",
     email_label: "EMAIL*",
     telemovel: "TELEMOVEL*",
     password_label: "PASSWORD*",
-    confirm_password_label: "CONFIRMAR PASSWORD*",
-    criar_conta: "CRIAR CONTA",
-    ja_tens_conta: "JA TENS CONTE?",
-    entrar: "ENTRAR"
+    entrar: "ENTRAR",
+    nao_tens_conta: "AINDA NAO TENS CONTA?",
+    criar_conta: "CRIAR CONTA"
   },
   en: {
-    criar_conta_titulo: "CREATE ACCOUNT",
-    nome: "NAME*",
-    telemovel: "PHONE*",
-    apelido: "NICKNAME*",
+    entrar_titulo: "LOGIN",
     email_label: "EMAIL*",
+    telemovel: "PHONE*",
     password_label: "PASSWORD*",
-    confirm_password_label: "CONFIRM PASSWORD*",
-    criar_conta: "CREATE ACCOUNT",
-    ja_tens_conta: "ALREADY HAVE AN ACCOUNT?",
-    entrar: "LOG IN"
+    entrar: "LOGIN",
+    nao_tens_conta: "DON'T HAVE AN ACCOUNT?",
+    criar_conta: "CREATE ACCOUNT"
   },
   es: {
-    criar_conta_titulo: "CREAR CUENTA",
-    nome: "NOMBRE*",
+    entrar_titulo: "INICIAR SESIÓN",
+    email_label: "CORREO ELECTRÓNICO*",
     telemovel: "TELÉFONO*",
-    apelido: "APODO*",
-    email_label: "EMAIL*",
     password_label: "CONTRASEÑA*",
-    confirm_password_label: "CONFIRMAR CONTRASEÑA*",
-    criar_conta: "CREAR CUENTA",
-    ja_tens_conta: "YA TIENES UNA CUENTA?",
-    entrar: "INICIAR SESIÓN"
+    entrar: "INICIAR SESIÓN",
+    nao_tens_conta: "¿NO TIENES UNA CUENTA?",
+    criar_conta: "CREAR CUENTA"
   },
   fr: {
-    criar_conta_titulo: "CRÉER UN COMPTE",
-    nome: "NOM*",
-    telemovel: "TÉLÉPHONE*",
-    apelido: "SURNOM*",
+    entrar_titulo: "SE CONNECTER",
     email_label: "EMAIL*",
+    telemovel: "TÉLÉPHONE*",
     password_label: "MOT DE PASSE*",
-    confirm_password_label: "CONFIRMER MOT DE PASSE*",
-    criar_conta: "CRÉER UN COMPTE",
-    ja_tens_conta: "AVEZ-VOUS DEJA UN COMPTE?",
-    entrar: "SE CONNECTER"
+    entrar: "SE CONNECTER",
+    nao_tens_conta: "VOUS N'AVEZ PAS DE COMPTE?",
+    criar_conta: "CRÉER UN COMPTE"
   },
   it: {
-    criar_conta_titulo: "CREARE UN ACCOUNT",
-    nome: "NOME*",
-    telemovel: "TELEFONO*",
-    apelido: "SURNOME*",
+    entrar_titulo: "ACCEDI",
     email_label: "EMAIL*",
+    telemovel: "TELEFONO*",
     password_label: "PASSWORD*",
-    confirm_password_label: "CONFIRMARE PASSWORD*",
-    criar_conta: "CREARE UN ACCOUNT",
-    ja_tens_conta: "HAI GIA UN ACCOUNT?",
-    entrar: "ACCEDERE"
+    entrar: "ACCEDI",
+    nao_tens_conta: "NON HAI UN ACCOUNT?",
+    criar_conta: "CREA UN ACCOUNT"
   },
   de: {
-    criar_conta_titulo: "KONTO ERSTELLEN",
-    nome: "NAME*",
-    telemovel: "TELEFON*",
-    apelido: "SPITZNAME*",
+    entrar_titulo: "ANMELDEN",
     email_label: "EMAIL*",
+    telemovel: "TELEFON*",
     password_label: "PASSWORD*",
-    confirm_password_label: "PASSWORD BESTÄTIGEN*",
-    criar_conta: "KONTO ERSTELLEN",
-    ja_tens_conta: "HAST DU SCHON EIN KONTO?",
-    entrar: "EINLOGGEN"
-  }
+    entrar: "ANMELDEN",
+    nao_tens_conta: "HABEN SIE NOCH KEIN KONTO?",
+    criar_conta: "KONTO ERSTELLEN"
+  },
 };
 
 function setLanguage(lang) {
@@ -144,22 +126,15 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
 
   if (activeTab === 'phone') {
     messageEl.style.color = '#4A3428';
-    messageEl.textContent = 'Verificação por telemóvel em breve.';
+    messageEl.textContent = 'Login por telemóvel em breve.';
     return;
   }
 
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  const confirmPassword = document.getElementById('confirm-password').value;
-
-  if (password !== confirmPassword) {
-    messageEl.style.color = 'red';
-    messageEl.textContent = 'As passwords não coincidem.';
-    return;
-  }
 
   try {
-    const response = await fetch('http://localhost:3000/signup', {
+    const response = await fetch('http://localhost:3000/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
@@ -170,6 +145,9 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
     if (response.ok) {
       messageEl.style.color = 'green';
       messageEl.textContent = data.message;
+      setTimeout(() => {
+        window.location.href = 'file:///C:/Users/jader/maTribu/maTribu-official/welcome.html';
+      }, 800);
     } else {
       messageEl.style.color = 'red';
       messageEl.textContent = data.error;

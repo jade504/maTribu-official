@@ -1,0 +1,165 @@
+/*jade was here*/
+
+body {
+  background: #fef6eb;
+  font-family: Georgia, serif;
+  color: #4A3428;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 30px;
+}
+
+#lang-button {
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.logo-wrap {
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 43%;
+  object-fit: cover;
+}
+
+.card {
+  background: #fde8dc;
+  border-radius: 20px;
+  padding: 30px 35px;
+  width: 320px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #f9D4c9;
+  letter-spacing: 1px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tab.active {
+  background: #fde8dc;
+}
+
+label {
+  display: block;
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin: 12px 0 4px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #f9d4c9;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+input:focus {
+  outline: 2px solid #9b59b6;
+}
+
+.password-wrap {
+  position: relative;
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+#submit-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+  background: #e1817a;
+  color: rgb(0, 0, 0);
+  letter-spacing: 1px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.login-link {
+  font-size: 11px;
+  margin-top: 12px;
+  letter-spacing: 1px;
+}
+
+.login-link a {
+  color: #4A3428;
+}
+
+#form-message {
+  font-size: 12px;
+  min-height: 16px;
+}
+
+#lang-list {
+  list-style: none;
+  position: absolute;
+  top: 40px;
+  right: 30px;
+  background: #F9D9C9;
+  border-radius: 8px;
+  padding: 8px 0;
+  margin: 0;
+}
+
+#lang-list li {
+  padding: 6px 20px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+#lang-list li:hover {
+  background: #F3C9B5;
+}
+
+.hidden {
+  display: none;
+}
+
+.top-bar {
+  position: relative;
+}
