@@ -1,16 +1,74 @@
+<!--jade was here-->
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<title>Bem-vindo</title>
-<link rel="stylesheet" href="create-account.css">
+<title>maTribu</title>
+<link rel="stylesheet" href="welcome.css">
 </head>
 <body>
 
-<div class="card" style="margin-top: 100px;">
-  <h1>BEM-VINDO!</h1>
-  <p>A tua conta foi confirmada com sucesso.</p>
-</div>
+<header class="top-bar">
+  <div class="logo-group">
+    <img src="logo.png" alt="maTribu" class="logo-small">
+    <span class="brand">MaTribu</span>
+  </div>
 
-</body>
-</html>
+  <div class="menu-wrap">
+    <button id="menu-button">MENU ▾</button>
+    <ul id="menu-list" class="hidden">
+      <li><img src="recursos-icon.png" alt="" class="menu-icon"> RECURSOS</li>
+      <li><img src="mensagens-icon.png" alt="" class="menu-icon"> MENSAGENS</li>
+      <li><img src="comunidade-icon.png" alt="" class="menu-icon"> COMUNIDADE</li>
+    </ul>
+  </div>
+
+  <div class="search-wrap">
+    <input type="text" placeholder="Look for resources, articles, etc...">
+  </div>
+
+  <div class="icon-group">
+    <img src="home-icon.png" alt="home" class="icon-img">
+    <img src="profile-icon.png" alt="profile" class="icon-img">
+  </div>
+</header>
+
+<main class="content">
+
+  <section class="news-panel">
+    <h2>NOTÍCIAS</h2>
+    <div id="news-list">
+      <p class="news-empty">A carregar notícias...</p>
+    </div>
+  </section>
+
+  <section class="quick-actions">
+    <h2>AÇÕES RÁPIDAS</h2>
+    <div class="actions-grid">
+      <div class="action">
+        <img src="recursos-icon.png" alt="" class="action-icon-img">
+        <span>BUSCAR</span>
+      </div>
+      <div class="action">
+        <img src="comunidade-icon.png" alt="" class="action-icon-img">
+        <span>COMUNIDADES</span>
+      </div>
+      <div class="action">
+        <img src="mail-icon.png" alt="" class="action-icon-img">
+        <span>NOVAS<br>CONVERSAS</span>
+      </div>
+      <div class="action">
+        <img src="calendar-icon.png" alt="" class="action-icon-img">
+        <span>EVENTOS</span>
+      </div>
+      <div class="action">
+        <img src="heart-icon.png" alt="" class="action-icon-img">
+        <span>FAVORITOS</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="welcome.js"></script>
