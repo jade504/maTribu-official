@@ -4,13 +4,13 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<title>Perfil</title>
+<title>Recursos</title>
 <link rel="stylesheet" href="welcome.css">
-<link rel="stylesheet" href="perfil.css">
 </head>
 <body>
 
 <header class="top-bar">
+  
   <div class="logo-group">
     <img src="logo.png" alt="maTribu" class="logo-small">
     <span class="brand">MaTribu</span>
@@ -18,14 +18,13 @@
   <div class="menu-wrap">
     <button id="menu-button">MENU ▾</button>
     <ul id="menu-list" class="hidden">
-      <li><a href="recursos.html"><img src="recursos-icon.jpeg" alt="" class="menu-icon"> RECURSOS</a></li>
-      <li><a href="mensagens.html"><img src="mensagens-icon.jpeg" alt="" class="menu-icon"> MENSAGENS</a></li>
-      <li><a href="comunidades.html"><img src="comunidade-icon.jpeg" alt="" class="menu-icon"> COMUNIDADE</a></li>
+      <li><img src="recursos-icon.jpeg" alt="" class="menu-icon"> RECURSOS</a></li>
+      <li><img src="mensagens-icon.jpeg" alt="" class="menu-icon"> MENSAGENS</a></li>
+      <li><img src="comunidade-icon.jpeg" alt="" class="menu-icon"> COMUNIDADE</a></li>
     </ul>
   </div>
   <div class="search-wrap">
     <input type="text" id="search-input" placeholder="Look for resources, articles, etc...">
-    <div id="search-results" class="hidden"></div>
   </div>
   <div class="icon-group">
     <a href="welcome.html"><img src="home-icon.jpeg" alt="home" class="icon-img"></a>
@@ -34,16 +33,12 @@
 </header>
 
 <main class="content">
-  <section class="perfil-card">
-    <h2>PERFIL</h2>
-    <div id="perfil-info">
-      <p>A carregar...</p>
-    </div>
-    <button id="logout-btn">SAIR</button>
+  <section class="news-panel" style="flex:1 1 100%;">
+    <h2>BUSCAR</h2>
+    <p style="padding:0 10px;">Em breve: artigos, guias e recursos úteis para a comunidade.</p>
   </section>
 </main>
 
 <script src="search.js"></script>
-<script src="perfil.js"></script>
 </body>
 </html>
