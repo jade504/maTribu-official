@@ -1,5 +1,6 @@
 body {
-  background: #fef6eb;
+  background: #fef6eb
+;
   font-family: Georgia, serif;
   color: #4A3428;
   margin: 0;
@@ -52,7 +53,7 @@ body {
   position: absolute;
   top: 30px;
   left: 0;
-  background: #f9d9c9;
+  background: #f8ccbb;
   color: #4A3428;
   list-style: none;
   padding: 8px 0;
@@ -70,7 +71,7 @@ body {
 }
 
 #menu-list li:hover {
-  background: #f3c9b5;
+  background: #8f350b;
 }
 
 .hidden {
@@ -149,7 +150,7 @@ h2 {
 .action-icon-img {
   width: 28px;
   height: 28px;
-  background: #f3c9b5;
+  background: #fde8dc;
   border-radius: 50%;
   padding: 16px;
   box-sizing: content-box;
