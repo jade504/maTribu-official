@@ -54,7 +54,7 @@ body {
   top: 30px;
   left: 0;
   background: #f8ccbb;
-  color: #4A3428;
+  color: #180901;
   list-style: none;
   padding: 8px 0;
   margin: 0;
@@ -71,7 +71,7 @@ body {
 }
 
 #menu-list li:hover {
-  background: #8f350b;
+  background: #e1817a;
 }
 
 .hidden {

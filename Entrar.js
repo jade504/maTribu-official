@@ -143,11 +143,12 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (response.ok) {
-      messageEl.style.color = 'green';
-      messageEl.textContent = data.message;
-      setTimeout(() => {
-        window.location.href = 'file:///C:/Users/jader/maTribu/maTribu-official/welcome.html';
-      }, 800);
+  messageEl.style.color = 'green';
+  messageEl.textContent = data.message;
+  localStorage.setItem('matribu_user_email', email);
+  setTimeout(() => {
+    window.location.href = 'welcome.html';
+  }, 800);
     } else {
       messageEl.style.color = 'red';
       messageEl.textContent = data.error;

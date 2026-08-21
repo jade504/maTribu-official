@@ -1,0 +1,49 @@
+
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Perfil</title>
+<link rel="stylesheet" href="welcome.css">
+<link rel="stylesheet" href="perfil.css">
+</head>
+<body>
+
+<header class="top-bar">
+  <div class="logo-group">
+    <img src="logo.png" alt="maTribu" class="logo-small">
+    <span class="brand">MaTribu</span>
+  </div>
+  <div class="menu-wrap">
+    <button id="menu-button">MENU ▾</button>
+    <ul id="menu-list" class="hidden">
+      <li><img src="recursos-icon.png" alt="" class="menu-icon"> RECURSOS</li>
+      <li><img src="mensagens-icon.png" alt="" class="menu-icon"> MENSAGENS</li>
+      <li><img src="comunidade-icon.png" alt="" class="menu-icon"> COMUNIDADE</li>
+    </ul>
+  </div>
+  <div class="search-wrap">
+    <input type="text" id="search-input" placeholder="Look for resources, articles, etc...">
+    <div id="search-results" class="hidden"></div>
+  </div>
+  <div class="icon-group">
+    <a href="welcome.html"><img src="home-icon.png" alt="home" class="icon-img"></a>
+    <img src="profile-icon.png" alt="profile" class="icon-img">
+  </div>
+</header>
+
+<main class="content">
+  <section class="perfil-card">
+    <h2>PERFIL</h2>
+    <div id="perfil-info">
+      <p>A carregar...</p>
+    </div>
+    <button id="logout-btn">SAIR</button>
+  </section>
+</main>
+
+<script src="search.js"></script>
+<script src="perfil.js"></script>
+</body>
+</html>
