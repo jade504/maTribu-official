@@ -46,5 +46,32 @@ document.getElementById('publish-btn').addEventListener('click', async () => {
   }
 });
 </script>
+
+<section class="perfil-card" style="margin-top:20px;">
+  <h2>GERIR UTILIZADORES</h2>
+  <input type="password" id="admin-key-users" placeholder="Chave admin" style="width:100%;padding:8px;margin-bottom:10px;">
+  <button onclick="loadUsers()" style="width:100%;padding:10px;border:none;border-radius:25px;background:#e1817a;color:white;">CARREGAR UTILIZADORES</button>
+  <div id="users-list"></div>
+</section>
+<script>
+async function loadUsers() {
+  const key = document.getElementById('admin-key-users').value;
+  const res = await fetch('http://localhost:3000/admin/users', { headers: { 'x-admin-key': key } });
+  const users = await res.json();
+  const listEl = document.getElementById('users-list');
+  if (!res.ok) { listEl.innerHTML = `<p>${users.error}</p>`; return; }
+  listEl.innerHTML = users.map(u => `
+    <p>${u.email} ${u.banned ? '(BANIDO)' : ''}
+    <button onclick="toggleBan('${u.email}', ${u.banned}, '${key}')">${u.banned ? 'Reativar' : 'Banir'}</button></p>
+  `).join('');
+}
+async function toggleBan(email, isBanned, key) {
+  const endpoint = isBanned ? 'unban' : 'ban';
+  await fetch(`http://localhost:3000/admin/users/${encodeURIComponent(email)}/${endpoint}`, {
+    method: 'POST',
+    headers: { 'x-admin-key': key }
+  });
+  loadUsers();
+}
+</script>
 </body>
-</html>
