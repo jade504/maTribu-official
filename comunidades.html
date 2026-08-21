@@ -1,45 +1,88 @@
-
-
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<title>Recursos</title>
+<title>Comunidades</title>
 <link rel="stylesheet" href="welcome.css">
 </head>
 <body>
-
 <header class="top-bar">
-
-  <div class="logo-group">
-    <img src="logo.png" alt="maTribu" class="logo-small">
-    <span class="brand">MaTribu</span>
-  </div>
-  <div class="menu-wrap">
-    <button id="menu-button">MENU ▾</button>
-    <ul id="menu-list" class="hidden">
-      <li><img src="recursos-icon.jpeg" alt="" class="menu-icon"> RECURSOS</a></li>
-      <li><img src="mensagens-icon.jpeg" alt="" class="menu-icon"> MENSAGENS</a></li>
-      <li><img src="comunidade-icon.jpeg" alt="" class="menu-icon"> COMUNIDADE</a></li>
-    </ul>
-  </div>
-  <div class="search-wrap">
-    <input type="text" id="search-input" placeholder="Look for resources, articles, etc...">
-  </div>
+  <div class="logo-group"><img src="logo.png" class="logo-small"><span class="brand">MaTribu</span></div>
+  <div class="search-wrap"><input type="text" id="search-input" placeholder="Look for resources..."></div>
   <div class="icon-group">
-    <a href="welcome.html"><img src="home-icon.jpeg" alt="home" class="icon-img"></a>
-    <a href="perfil.html"><img src="profile-icon.jpeg" alt="profile" class="icon-img"></a>
+    <a href="welcome.html"><img src="home-icon.png" class="icon-img"></a>
+    <a href="perfil.html"><img src="profile-icon.png" class="icon-img"></a>
   </div>
 </header>
 
 <main class="content">
-  <section class="news-panel" style="flex:1 1 100%;">
-    <h2>COMUNIDADES</h2>
-    <p style="padding:0 10px;">Em breve: artigos, guias e recursos úteis para a comunidade.</p>
+  <section class="news-panel" style="flex:1 1 40%;">
+    <h2>CRIAR COMUNIDADE</h2>
+    <input type="text" id="new-community-name" placeholder="Nome da comunidade" style="width:100%;padding:8px;margin-bottom:8px;">
+    <textarea id="new-community-desc" placeholder="Descrição" style="width:100%;padding:8px;margin-bottom:8px;"></textarea>
+    <button id="create-community-btn" style="width:100%;padding:10px;border:none;border-radius:25px;background:#e1817a;color:white;">CRIAR</button>
+    <p id="create-msg"></p>
+  </section>
+
+  <section class="quick-actions" style="flex:1 1 50%;">
+    <h2>COMUNIDADES EXISTENTES</h2>
+    <div id="communities-list"><p>A carregar...</p></div>
   </section>
 </main>
 
 <script src="search.js"></script>
+<script>
+const userEmail = localStorage.getItem('matribu_user_email');
+
+async function loadCommunities() {
+  const listEl = document.getElementById('communities-list');
+  try {
+    const res = await fetch('http://localhost:3000/communities');
+    const communities = await res.json();
+    if (communities.length === 0) { listEl.innerHTML = '<p>Nenhuma comunidade ainda.</p>'; return; }
+    listEl.innerHTML = '';
+    communities.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'news-item';
+      div.innerHTML = `<h3>${c.name}</h3><p>${c.description || ''}</p><button data-id="${c.id}" class="join-btn">ENTRAR</button>`;
+      listEl.appendChild(div);
+    });
+    document.querySelectorAll('.join-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const res = await fetch(`http://localhost:3000/communities/${btn.dataset.id}/join`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: userEmail })
+        });
+        const data = await res.json();
+        alert(data.message || data.error);
+      });
+    });
+  } catch (err) {
+    listEl.innerHTML = '<p>Erro ao carregar comunidades.</p>';
+  }
+}
+
+document.getElementById('create-community-btn').addEventListener('click', async () => {
+  const name = document.getElementById('new-community-name').value;
+  const description = document.getElementById('new-community-desc').value;
+  const msg = document.getElementById('create-msg');
+  try {
+    const res = await fetch('http://localhost:3000/communities', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, description, created_by: userEmail })
+    });
+    const data = await res.json();
+    msg.style.color = res.ok ? 'green' : 'red';
+    msg.textContent = res.ok ? data.message : data.error;
+    if (res.ok) loadCommunities();
+  } catch (err) {
+    msg.textContent = 'Erro de ligação.';
+  }
+});
+
+loadCommunities();
+</script>
 </body>
 </html>

@@ -104,23 +104,25 @@ langItems.forEach(function(item) {
   });
 });
 
-const tabEmail = document.getElementById('tab-email');
-const tabPhone = document.getElementById('tab-phone');
-const emailFields = document.getElementById('email-fields');
-const phoneFields = document.getElementById('phone-fields');
-const submitBtn = document.getElementById('submit-btn');
+const email = document.getElementById('email').value;
+const password = document.getElementById('password').value;
+const nome = document.getElementById('nome').value;
+const apelido = document.getElementById('apelido').value;
 
-let activeTab = 'email';
-
-tabEmail.addEventListener('click', () => {
-  activeTab = 'email';
-  tabEmail.classList.add('active');
-  tabPhone.classList.remove('active');
+try {
+  const response = await fetch('http://localhost:3000/signup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password, nome, apelido })
+  });
+} catch (error) {
+  console.error('Error during signup:', error);
+}
   emailFields.style.display = 'block';
   phoneFields.style.display = 'none';
   submitBtn.textContent = 'CRIAR CONTA';
-});
 
+  
 tabPhone.addEventListener('click', () => {
   activeTab = 'phone';
   tabPhone.classList.add('active');

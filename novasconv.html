@@ -1,44 +1,88 @@
-
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<title>Recursos</title>
+<title>Novas Conversas</title>
 <link rel="stylesheet" href="welcome.css">
 </head>
 <body>
-
 <header class="top-bar">
-
-  <div class="logo-group">
-    <img src="logo.png" alt="maTribu" class="logo-small">
-    <span class="brand">MaTribu</span>
-  </div>
-  <div class="menu-wrap">
-    <button id="menu-button">MENU ▾</button>
-    <ul id="menu-list" class="hidden">
-      <li><img src="recursos-icon.jpeg" alt="" class="menu-icon"> RECURSOS</a></li>
-      <li><img src="mensagens-icon.jpeg" alt="" class="menu-icon"> MENSAGENS</a></li>
-      <li><img src="comunidade-icon.jpeg" alt="" class="menu-icon"> COMUNIDADE</a></li>
-    </ul>
-  </div>
-  <div class="search-wrap">
-    <input type="text" id="search-input" placeholder="Look for resources, articles, etc...">
-  </div>
+  <div class="logo-group"><img src="logo.png" class="logo-small"><span class="brand">MaTribu</span></div>
+  <div class="search-wrap"><input type="text" id="search-input" placeholder="Look for resources..."></div>
   <div class="icon-group">
-    <a href="welcome.html"><img src="home-icon.jpeg" alt="home" class="icon-img"></a>
-    <a href="perfil.html"><img src="profile-icon.jpeg" alt="profile" class="icon-img"></a>
+    <a href="welcome.html"><img src="home-icon.png" class="icon-img"></a>
+    <a href="perfil.html"><img src="profile-icon.png" class="icon-img"></a>
   </div>
 </header>
 
 <main class="content">
-  <section class="news-panel" style="flex:1 1 100%;">
-    <h2>NOVAS CONVERSAS</h2>
-    <p style="padding:0 10px;">Em breve: artigos, guias e recursos úteis para a comunidade.</p>
+  <section class="quick-actions" style="flex:1 1 40%;">
+    <h2>PESSOAS</h2>
+    <div id="people-list"><p>A carregar...</p></div>
+  </section>
+
+  <section class="news-panel" style="flex:1 1 50%;">
+    <h2 id="chat-title">CONVERSA</h2>
+    <div id="chat-thread" style="min-height:200px;"></div>
+    <div id="chat-box" style="display:none;">
+      <input type="text" id="chat-input" placeholder="Escreve uma mensagem..." style="width:70%;padding:8px;">
+      <button id="chat-send" style="padding:8px 14px;border:none;border-radius:20px;background:#e1817a;color:white;">Enviar</button>
+    </div>
   </section>
 </main>
 
 <script src="search.js"></script>
+<script>
+const userEmail = localStorage.getItem('matribu_user_email');
+let activeChatWith = null;
+
+async function loadPeople() {
+  const listEl = document.getElementById('people-list');
+  const res = await fetch(`http://localhost:3000/feed?email=${encodeURIComponent(userEmail)}`);
+  const people = await res.json();
+  if (people.length === 0) { listEl.innerHTML = '<p>Ninguém por aqui ainda.</p>'; return; }
+  listEl.innerHTML = '';
+  people.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'news-item';
+    div.style.cursor = 'pointer';
+    div.innerHTML = `<h3>${p.nome || p.email} ${p.apelido ? '(' + p.apelido + ')' : ''}</h3>`;
+    div.addEventListener('click', () => openChat(p.email, p.nome || p.email));
+    listEl.appendChild(div);
+  });
+}
+
+async function openChat(email, displayName) {
+  activeChatWith = email;
+  document.getElementById('chat-title').textContent = 'CONVERSA COM ' + displayName.toUpperCase();
+  document.getElementById('chat-box').style.display = 'block';
+  await loadThread();
+}
+
+async function loadThread() {
+  if (!activeChatWith) return;
+  const res = await fetch(`http://localhost:3000/messages/${encodeURIComponent(activeChatWith)}?me=${encodeURIComponent(userEmail)}`);
+  const messages = await res.json();
+  const threadEl = document.getElementById('chat-thread');
+  threadEl.innerHTML = messages.map(m =>
+    `<p><strong>${m.from_email === userEmail ? 'Tu' : m.from_email}:</strong> ${m.content}</p>`
+  ).join('');
+}
+
+document.getElementById('chat-send').addEventListener('click', async () => {
+  const input = document.getElementById('chat-input');
+  if (!input.value || !activeChatWith) return;
+  await fetch('http://localhost:3000/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from_email: userEmail, to_email: activeChatWith, content: input.value })
+  });
+  input.value = '';
+  loadThread();
+});
+
+loadPeople();
+</script>
 </body>
 </html>
+

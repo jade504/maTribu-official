@@ -1,45 +1,45 @@
-
-
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<title>Recursos</title>
+<title>Favoritos</title>
 <link rel="stylesheet" href="welcome.css">
 </head>
 <body>
-
 <header class="top-bar">
-
-  <div class="logo-group">
-    <img src="logo.png" alt="maTribu" class="logo-small">
-    <span class="brand">MaTribu</span>
-  </div>
-  <div class="menu-wrap">
-    <button id="menu-button">MENU ▾</button>
-    <ul id="menu-list" class="hidden">
-      <li><img src="recursos-icon.jpeg" alt="" class="menu-icon"> RECURSOS</a></li>
-      <li><img src="mensagens-icon.jpeg" alt="" class="menu-icon"> MENSAGENS</a></li>
-      <li><img src="comunidade-icon.jpeg" alt="" class="menu-icon"> COMUNIDADE</a></li>
-    </ul>
-  </div>
-  <div class="search-wrap">
-    <input type="text" id="search-input" placeholder="Look for resources, articles, etc...">
-  </div>
+  <div class="logo-group"><img src="logo.png" class="logo-small"><span class="brand">MaTribu</span></div>
+  <div class="search-wrap"><input type="text" id="search-input" placeholder="Look for resources..."></div>
   <div class="icon-group">
-    <a href="welcome.html"><img src="home-icon.jpeg" alt="home" class="icon-img"></a>
-    <a href="perfil.html"><img src="profile-icon.jpeg" alt="profile" class="icon-img"></a>
+    <a href="welcome.html"><img src="home-icon.png" class="icon-img"></a>
+    <a href="perfil.html"><img src="profile-icon.png" class="icon-img"></a>
   </div>
 </header>
-
 <main class="content">
   <section class="news-panel" style="flex:1 1 100%;">
-    <h2>FAVORITOS</h2>
-    <p style="padding:0 10px;">Em breve: artigos, guias e recursos úteis para a comunidade.</p>
+    <h2>OS TEUS FAVORITOS</h2>
+    <div id="fav-list"><p>A carregar...</p></div>
   </section>
 </main>
-
 <script src="search.js"></script>
+<script>
+const userEmail = localStorage.getItem('matribu_user_email');
+async function loadFavorites() {
+  const listEl = document.getElementById('fav-list');
+  const res = await fetch(`http://localhost:3000/favorites?email=${encodeURIComponent(userEmail)}`);
+  const favs = await res.json();
+  if (favs.length === 0) { listEl.innerHTML = '<p>Ainda não tens favoritos.</p>'; return; }
+  listEl.innerHTML = favs.map(f => `
+    <div class="news-item">
+      <p>${f.item_type} #${f.item_id}</p>
+      <button onclick="removeFav(${f.id})">Remover</button>
+    </div>
+  `).join('');
+}
+async function removeFav(id) {
+  await fetch(`http://localhost:3000/favorites/${id}`, { method: 'DELETE' });
+  loadFavorites();
+}
+loadFavorites();
+</script>
 </body>
 </html>
