@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Admin</title>
+<link rel="stylesheet" href="welcome.css">
+<link rel="stylesheet" href="perfil.css">
+</head>
+<body>
+<main class="content">
+  <section class="perfil-card">
+    <h2>NOVA NOTÍCIA (ADMIN)</h2>
+    <label>Chave admin</label>
+    <input type="password" id="admin-key" style="width:100%;padding:8px;margin-bottom:10px;">
+    <label>Título</label>
+    <input type="text" id="post-title" style="width:100%;padding:8px;margin-bottom:10px;">
+    <label>Texto</label>
+    <textarea id="post-content" style="width:100%;padding:8px;margin-bottom:10px;" rows="4"></textarea>
+    <label>URL de imagem (opcional)</label>
+    <input type="text" id="post-image" style="width:100%;padding:8px;margin-bottom:10px;">
+    <button id="publish-btn" style="width:100%;padding:10px;border:none;border-radius:25px;background:#e1817a;color:white;cursor:pointer;">PUBLICAR</button>
+    <p id="admin-msg"></p>
+  </section>
+</main>
+<script>
+document.getElementById('publish-btn').addEventListener('click', async () => {
+  const key = document.getElementById('admin-key').value;
+  const title = document.getElementById('post-title').value;
+  const content = document.getElementById('post-content').value;
+  const image_url = document.getElementById('post-image').value;
+  const msg = document.getElementById('admin-msg');
+
+  try {
+    const res = await fetch('http://localhost:3000/posts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': key },
+      body: JSON.stringify({ title, content, image_url })
+    });
+    const data = await res.json();
+    msg.style.color = res.ok ? 'green' : 'red';
+    msg.textContent = res.ok ? data.message : data.error;
+  } catch (err) {
+    msg.style.color = 'red';
+    msg.textContent = 'Erro de ligação.';
+  }
+});
+</script>
+</body>
+</html>
